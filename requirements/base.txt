@@ -27,6 +27,7 @@ django-blog-zinnia==0.14.1
 django-polymorphic==0.6
 jsonfield==1.0.0
 autotag
+django-autotag
 django-taggit
 -e git+https://github.com/mozilla/unicode-slugify.git#egg=unicode-slugify
 

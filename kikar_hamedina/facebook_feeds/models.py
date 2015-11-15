@@ -11,6 +11,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 
 from django_pandas.managers import DataFrameManager
+
 from taggit.managers import TaggableManager
 from kikartags.managers import _KikarTaggableManager
 from slugify import slugify

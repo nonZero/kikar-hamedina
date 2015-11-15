@@ -3,9 +3,11 @@
 
 
 <div class="status-content" id="status-content-{{ obj.status_id }}">
-    <img src="{{ obj.feed.picture_square }}">
 
-    <p>{{ obj.content|truncatewords_html:80|urlize|linebreaks }}</p>
+
+    <p style="display: inline-block"><img src="{{ obj.feed.picture_square }}"
+                                          style="float: right"><span>{{ obj.content|truncatewords_html:80|urlize|linebreaks }}</span>
+    </p>
 
     {% if obj.has_attachment %}
         {% if obj.attachment.type == 'photo' %}

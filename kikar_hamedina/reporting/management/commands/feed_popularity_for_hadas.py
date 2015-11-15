@@ -44,7 +44,7 @@ class Command(BaseCommand):
         csv_data.writerow(headers)
 
         for row in feed_history_data:
-            row_keys = headers
+            row_keys = field_names
             row_values = row.values()
             csv_data.writerow({x[0]: unicode(x[1]).encode('utf-8') for x in zip(row_keys, row_values)})
 

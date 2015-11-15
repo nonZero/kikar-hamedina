@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from reporting.models import WeeklyReportRecipients, RSSFeedKeyWord
+from reporting.models import WeeklyReportRecipients, RSSFeedKeyWord, RSSFeedExcludeStatuses
 
 
 class WeeklyReportRecipientInline(admin.StackedInline):
@@ -16,10 +16,15 @@ class KeywordAdminTabularInline(admin.TabularInline):
     extra = 1
 
 
-class UserAdmin(UserAdmin):
-    inlines = (WeeklyReportRecipientInline, KeywordAdminTabularInline)
+class ExcludedStatusesAdminTabularInline(admin.TabularInline):
+    model = RSSFeedExcludeStatuses
+    extra = 1
+    # fields = ['status__id']
 
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (WeeklyReportRecipientInline, KeywordAdminTabularInline, ExcludedStatusesAdminTabularInline)
 
 
 admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)

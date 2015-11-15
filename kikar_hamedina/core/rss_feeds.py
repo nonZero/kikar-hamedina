@@ -45,11 +45,11 @@ class LatestStatusesRSSFeed(Feed):
     feed_type = ExtendedRSSFeed
 
     title = "כיכר המדינה - עדכונים אחרונים"
-    link = "http://kikar.org/?range=week"
+    link = "http://kikar.org/?range=day"
     description = "העדכונים האחרונים של המועמדים לכנסת ה-20 בפייסבוק, דרך כיכר המדינה"
 
     def items(self):
-        return Facebook_Status.objects.filter(published__gte=timezone.now() - timezone.timedelta(days=7)).order_by(
+        return Facebook_Status.objects.filter(published__gte=timezone.now() - timezone.timedelta(hours=3)).order_by(
             '-published')
 
     def item_title(self, item):
@@ -102,7 +102,8 @@ class PartyRSSFeed(Feed):
 
 
 class KeywordsByUserRSSFeed(Feed):
-    description_template = 'rss/party_description.html'
+
+    description_template = 'rss/default_status_description.html'
 
     def get_object(self, request, user_id):
         return get_object_or_404(User, pk=user_id)
@@ -141,3 +142,40 @@ class KeywordsByUserRSSFeed(Feed):
                                              phrases=[x.keyword for x in obj.words_in_rss_feed.all()])
         return Facebook_Status.objects.filter(Query_Q).order_by('-published')[:30]
 
+#
+#
+# class KeywordsByUserRSSFeed(Feed):
+#     feed_type = ExtendedRSSFeed
+#
+#     title = "כיכר המדינה - עדכונים אחרונים"
+#     link = "http://kikar.org/?range=day"
+#     description = "העדכונים האחרונים של המועמדים לכנסת ה-20 בפייסבוק, דרך כיכר המדינה"
+#
+#     def items(self):
+#         return Facebook_Status.objects.filter(published__gte=timezone.now() - timezone.timedelta(hours=3)).order_by(
+#             '-published')
+#
+#     def item_title(self, item):
+#         return u'סטאטוס מאת ח"כ %s, %s' % (item.feed.persona.owner.name, item.feed.persona.owner.current_party.name)
+#
+#
+#     def item_extra_kwargs(self, item):
+#         return {'content_encoded': self.item_content_encoded(item)}
+#
+#     def item_pubdate(self, item):
+#         return item.published
+#
+#     description_template = 'rss/default_status_description.html'
+#
+#
+#     def item_link(self, item):
+#         return reverse('status-detail', args=[item.status_id])
+#
+#
+#     def item_content_encoded(self, item):
+#         content = item.content
+#         if item.story:
+#             content += item.story
+#
+#         # return "<![CDATA[<b>" + content + "</b>]]>"
+#         return "<b> here" + content + "</b>"

@@ -90,7 +90,7 @@ urlpatterns = patterns('',
                            name='untagged'),
                        url(r'^review-tags/$', views.ReviewTagsView.as_view(), name='review-tags'),
                        # rss feeds
-                       url(r'^latest/feed/$', LatestStatusesRSSFeed(), name='rss-latest'),
+                       url(r'^latest/feed/$', LatestStatusesRSSFeed(), name='rss-feed-latest'),
                        url(r'^party/(?P<party_id>\d+)/rss/$', PartyRSSFeed()),
                        url(r'^user/(?P<user_id>\d+)/rss/$', KeywordsByUserRSSFeed()),
                        url(r'^latest/widget$', views.WidgetView.as_view(), name='rss-widget-latest'),

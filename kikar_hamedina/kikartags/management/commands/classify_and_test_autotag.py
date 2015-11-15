@@ -5,7 +5,8 @@ from django.core.management.base import BaseCommand
 from django.db.models import Count
 from django.conf import settings
 
-from autotag import autotag
+from autotag_app import autotag as autotag
+# from autotag import autotag as autotag
 
 from facebook_feeds.models import Facebook_Status
 from kikartags.models import Tag
