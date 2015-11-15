@@ -62,7 +62,7 @@ urlpatterns = patterns('',
                        url(r'^customs/$', views.AllCustomsView.as_view(), name='all-customs'),
                        url(r'^custom/save/$', views.save_queryset_for_user, name='save-custom-request'),
                        url(r'^custom/id/(?P<id>\d+)/$', views.CustomViewByID.as_view(), name='custom-by-id'),
-                       url(r'^custom/(?P<title>[\w\d\.\s]+)/$', views.CustomView.as_view(), name='custom'),
+                       url(r'^custom/(?P<title>[\w\d\.\s-]+)/$', views.CustomView.as_view(), name='custom'),
                        url(r'^title_exists/', views.title_exists, name='title-exists'),
                        # Views for all objects of type
                        url(r'^members/$',
