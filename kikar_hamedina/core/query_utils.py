@@ -154,7 +154,7 @@ def parse_to_q_object(get_params, params_dict):
     # all members asked for (through member search of party search), with OR between them.
     members_OR_parties_Q = Q()
     if feeds:
-        members_OR_parties_Q = Q(feed__in=feeds)
+        members_OR_parties_Q = Q(feed__id__in=[x.id for x in feeds])
 
     # tags - search for all tags specified by their id
     tags_Q = Q()

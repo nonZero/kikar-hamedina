@@ -24,26 +24,68 @@
 
 {% block main_content %}
     <table class="table table-hover">
+        <script src="{{ STATIC_URL }}js/customs_list.js"></script>
         <thead>
         <tr>
             <th>שם</th>
             <th>יוצר</th>
             <th>קישור</th>
             <th>
-                ממשק עריכה
+                {% if user.is_superuser %}
+                    עריכה
+                {% else %}
+           SandBox
+                {% endif %}
             </th>
+            {% if user.is_superuser %}
+                <th>
+                    מחיקה
+                </th>
+            {% endif %}
         </tr>
         </thead>
-    <tbody>
-    {% for custom in object_list %}
-    <tr>
-    <td>{{ custom.title }}</td>
-    <td>{{ custom.user }}</td>
-    <td><a href="{% url 'custom' custom.title %}"><i class="fa fa-link"></i></a></td>
-        {% load core_extras %}
-    <td><a href="{% url 'search-gui' %}{{ custom.path | path_to_params }}"><i class="fa fa-edit"></i></a></td>
-    </tr>
-    {% endfor %}
-    </tbody>
+        <tbody>
+        {% for custom in object_list %}
+            <tr id="query-row-{{ custom.title }}">
+                <td>{{ custom.title }}</td>
+                <td>{{ custom.user }}</td>
+                <td><a href="{% url 'custom' custom.title %}"><i class="fa fa-link"></i></a></td>
+                {% load core_extras %}
+                <td><a href="{% url 'search-gui' %}{{ custom.path | path_to_params }}"><i class="fa fa-edit"></i></a>
+                </td>
+                {% if user.is_superuser %}
+                    <td><a data-toggle="modal" class="delete-query-btn" data-target="#delete-query-modal"
+                           data-title="{{ custom.title }}"><i class="fa fa-trash"></i> </a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
+    <!-- Modal -->
+    <div class="modal fade" id="delete-query-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">מחיקת שאילתא</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="delete-query-form">
+                        {% csrf_token %}
+                        <label for="query-title">שאילתא: </label>
+                        <input type="text" name="query-title" id="delete-query-form-title" disabled="disabled" value="">
+
+                        <p>את/ה בטוח/ה שברצונך למחוק את השאילתא?</p>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="delete-query-submit-form-btn" class="btn btn-primary">מחיקה
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">ביטול</button>
+                    <p class="inline-error-p" id="delete-query-status-message"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

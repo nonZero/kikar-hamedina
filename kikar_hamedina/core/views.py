@@ -681,6 +681,22 @@ def title_exists(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
+def delete_queryset(request):
+    res = {}
+    title = request.POST.get('query-title')
+    try:
+        us = UserSearch.objects.get(title=title)
+        us.delete()
+        res = {'message': 'custom query deleted successfully'}
+    except UserSearch.DoesNotExist:
+        res = {'message': 'custom query deletion failed - no query with supplied title: {}'.format(title)}
+    except:
+        res = {'message': 'custom query deletion failed - unknown reason'}
+    finally:
+        return HttpResponse(content=json.dumps(res), content_type="application/json")
+
+
+@user_passes_test(lambda u: u.is_superuser)
 def save_queryset_for_user(request):
     # print request.POST
     user = request.user
