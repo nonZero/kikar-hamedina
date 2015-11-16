@@ -23,8 +23,16 @@ def get_resource_uri(obj, field):
     return resource.dehydrate_resource_uri(Bundle(obj=obj))
 
 
+class KikarResource(ModelResource):
+    class Meta:
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
+
+
 class KnessetResource(ModelResource):
     class Meta:
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
         queryset = Knesset.objects.all()
         resource_name = 'knesset'
 
@@ -34,6 +42,8 @@ class PartyResource(ModelResource):
     all_members = fields.ManyToManyField(MemberResource, 'all_members', null=True, blank=True)
 
     class Meta:
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
         queryset = PARTY_MODEL.objects.all()
         resource_name = 'party'
 
@@ -44,6 +54,8 @@ class Facebook_FeedResource(ModelResource):
     class Meta:
         queryset = Facebook_Feed.objects.all()
         resource_name = 'facebook_feed'
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
 
     def dehydrate_owner(self, bundle):
         persona = bundle.obj.persona
@@ -61,6 +73,8 @@ class MemberResource(ModelResource):
     class Meta:
         queryset = MEMBER_MODEL.objects.all()
         resource_name = 'member'
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
 
     def dehydrate_main_feed(self, bundle):
         persona = bundle.obj.facebook_persona
@@ -75,6 +89,8 @@ class TagResource(ModelResource):
     class Meta:
         queryset = Tag.objects.all()
         resource_name = 'tag'
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
 
 
 class Facebook_StatusResource(ModelResource):
@@ -83,6 +99,8 @@ class Facebook_StatusResource(ModelResource):
 
     class Meta:
         queryset = Facebook_Status.objects.all()
+        list_allowed_methods = ['get']
+        detail_allowed_methods = ['get']
         resource_name = 'facebook_status'
         filtering = {
             "status_id": ["exact"],
@@ -98,5 +116,3 @@ class Facebook_StatusResource(ModelResource):
         if bundle.obj.has_attachment:
             bundle.data['attachment'] = "Attachment"
         return bundle
-
-
