@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, url, include
 from django.conf.urls.static import static
-
 from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
 from facebook_feeds.models import Facebook_Status, Facebook_Feed, TAG_NAME_CHARSET
@@ -11,7 +10,7 @@ from tastypie.api import Api
 from api import *
 from insights import StatsMemberResource, StatsPartyResource
 from core.models import MEMBER_MODEL, PARTY_MODEL
-from core.rss_feeds import LatestStatusesRSSFeed, PartyRSSFeed, KeywordsByUserRSSFeed
+from core.rss_feeds import LatestStatusesRSSFeed, PartyRSSFeed, KeywordsByUserRSSFeed, CustomQueryRSSFeed
 
 v1_api = Api(api_name='v1')
 v1_api.register(MemberResource())
@@ -94,9 +93,11 @@ urlpatterns = patterns('',
                        url(r'^latest/feed/$', LatestStatusesRSSFeed(), name='rss-feed-latest'),
                        url(r'^party/(?P<party_id>\d+)/rss/$', PartyRSSFeed()),
                        url(r'^user/(?P<user_id>\d+)/rss/$', KeywordsByUserRSSFeed()),
-                       url(r'^latest/widget$', views.WidgetView.as_view(), name='rss-widget-latest'),
+                       url(r'^custom/(?P<title>[\w\d\.\s-]+)/rss/$', CustomQueryRSSFeed(), name='custom-query-rss'),
+                       url(r'^custom/(?P<title>[\w\d\.\s-]+)/rss/widget/$', views.CustomWidgetView.as_view(),
+                           name='custom-query-rss-widget'),
+                       url(r'^latest/widget/$', views.WidgetView.as_view(), name='rss-widget-latest'),
                        url(r'^suggested_tags/(?P<status_id>[-_\w]+)/$', views.return_suggested_tags),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+                       ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
-

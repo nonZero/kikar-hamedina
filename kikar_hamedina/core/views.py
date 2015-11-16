@@ -659,9 +659,24 @@ def return_suggested_tags(request, status_id):
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
 
-class WidgetView(TemplateView):
+class WidgetView(DetailView):
     template_name = 'core/rss_widget_page.html'
+    model = UserSearch
 
+    def get_object(self, queryset=None):
+        return UserSearch.objects.first()
+
+    def get_context_data(self, **kwargs):
+        context = super(WidgetView, self).get_context_data(**kwargs)
+        context['object'] = {'title': 'latest', 'path': '/latest/feed/', 'latest':'true'}
+        return context
+
+class CustomWidgetView(DetailView):
+    template_name = 'core/rss_widget_page.html'
+    model = UserSearch
+
+    def get_object(self, queryset=None):
+        return UserSearch.objects.get(title=self.kwargs['title'])
 
 def title_exists(request):
     if not request.GET.get('title', None):
