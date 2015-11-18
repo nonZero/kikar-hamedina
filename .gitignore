@@ -7,6 +7,7 @@ devOps/client_secrets.json
 classification_data/
 *.log
 *.pyc
+*.gz
 .vagrant/
 kikar_hamedina/kikar_hamedina/settings/deploy.py
 kikar_hamedina/kikar_hamedina/settings/key.py

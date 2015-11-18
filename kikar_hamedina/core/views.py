@@ -56,7 +56,7 @@ class AboutUsView(ListView):
 
         party_ids = [x['id'] for x in PARTY_MODEL.objects.all().values('id')]
 
-        featured_party_id = random.choice(party_ids)
+        featured_party_id = choice(party_ids)
         context['featured_party'] = PARTY_MODEL.objects.get(id=featured_party_id)
         context['featured_search'] = {'search_value': u'search_str=%22%D7%A6%D7%95%D7%A0%D7%90%D7%9E%D7%99%22',
                                       'search_name': u'\u05e6\u05d5\u05e0\u05d0\u05de\u05d9'}

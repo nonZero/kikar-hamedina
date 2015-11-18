@@ -67,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       python manage.py fetchfeedproperties || true
       python manage.py update_facebook_personas
       python manage.py update_is_current_feed
-      python manage.py classify_and_test_autotag 1
+      # python manage.py classify_and_test_autotag 1
     EOS
   end
 
