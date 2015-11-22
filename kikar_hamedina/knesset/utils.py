@@ -2,15 +2,15 @@ from datetime import datetime
 import re
 from django.utils.translation import ugettext as _
 from django.db import models
-from django.contrib.comments.views.comments import post_comment
+from django_comments.views.comments import post_comment
 from django.http import HttpResponse
 from django.test import Client
 from django.core.handlers.wsgi import WSGIRequest
 from django.contrib.auth.decorators import login_required
-from django.contrib.comments.models import Comment
+from django_comments.models import Comment
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-import django.contrib.comments.views.moderation as moderation
+import django_comments.views.moderation as moderation
 from django.utils.encoding import smart_str, smart_unicode
 from django.conf import settings
 from mailer import send_html_mail

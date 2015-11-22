@@ -26,7 +26,9 @@ STATICFILES_DIRS = (
 )
 
 # Configuring TEMPLATE_DIRS
-TEMPLATE_DIRS = sub_path("templates")
+TEMPLATE_DIRS = (
+    sub_path("templates"),
+)
 
 SECRET_KEY = 'yz2HiIDgrCDeHSfJSXIep3FeEQunsUhnC3P9ehGZ/KHVhLXNCZ'
 
@@ -42,12 +44,13 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'django.contrib.flatpages',
-    'django.contrib.comments',
     'django.contrib.humanize',
-    #Third-Party
+
+
+    # Third-Party
+    'django_comments',
     'rest_framework',
     'django_extensions',
-    'south',
     'pagination',
     'tagging',
     'dumpdata_chunks',
@@ -61,8 +64,8 @@ INSTALLED_APPS = (
     'links',
     'video',
     'polymorphic',
-    # 'autotag_app',
-    #Ours
+
+    # Ours
     'kikartags',
     'knesset',
     'mks',
@@ -136,12 +139,6 @@ PLANET = {
 SITE_ID = 1
 
 
-#Django-taggit settings
-SOUTH_MIGRATION_MODULES = {
-    'taggit': 'taggit.south_migrations',
-}
-
-
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -184,7 +181,6 @@ LOGGING = {
             'formatter': 'simple'
         },
         'console': {
-            'level': 'DEBUG',
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
@@ -194,19 +190,26 @@ LOGGING = {
         }
     },
     'loggers': {
-        'django': {
-            'handlers': ['scrapeFile'],
-            'propagate': True,
+        '': {
+            'handlers': ['console'],
             'level': 'INFO',
+        },
+        'django': {
+            'handlers': ['console'],
+        },
+        'django.request': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['mail_admins', 'console'],
+            'level': 'INFO',
+            'propagate': False,
         },
         'scraping': {
             'handlers': ['scraping'],
-            'propagate': True,
             'level': 'INFO',
-        },
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
             'propagate': True,
         },
     }

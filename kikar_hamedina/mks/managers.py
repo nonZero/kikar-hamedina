@@ -13,7 +13,7 @@ class KnessetManager(models.Manager):
     def current_knesset(self):
         if self._current_knesset is None:
             try:
-                self._current_knesset = self.get_query_set().order_by('-number')[0]
+                self._current_knesset = self.get_queryset().order_by('-number')[0]
             except IndexError:
                 #FIX: should document when and why this should happen
                 return None
@@ -51,18 +51,18 @@ class CurrentKnessetPartyManager(models.Manager):
         super(CurrentKnessetPartyManager, self).__init__()
         self._current = None
 
-    def get_query_set(self):
+    def get_queryset(self):
         # caching won't help here, as the query set will be re-run on each
         # request, and we may need to further run queries down the road
         from mks.models import Knesset
-        qs = super(CurrentKnessetPartyManager, self).get_query_set()
+        qs = super(CurrentKnessetPartyManager, self).get_queryset()
         qs = qs.filter(knesset=Knesset.objects.current_knesset())
         return qs
 
     @property
     def current_parties(self):
         if self._current is None:
-            self._current = list(self.get_query_set())
+            self._current = list(self.get_queryset())
 
         return self._current
 
@@ -70,8 +70,8 @@ class CurrentKnessetPartyManager(models.Manager):
 class CurrentKnessetMembersManager(models.Manager):
     "Adds the ability to filter on current knesset"
 
-    def get_query_set(self):
+    def get_queryset(self):
         from mks.models import Knesset
-        qs = super(CurrentKnessetMembersManager, self).get_query_set()
+        qs = super(CurrentKnessetMembersManager, self).get_queryset()
         qs = qs.filter(current_party__knesset=Knesset.objects.current_knesset())
         return qs

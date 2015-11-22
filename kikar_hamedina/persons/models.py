@@ -33,7 +33,7 @@ GENDER_CHOICES = (
 class Person(models.Model):
     name = models.CharField(max_length=64)
     mk = models.ForeignKey('mks.Member', blank=True, null=True, related_name='person')
-    titles = models.ManyToManyField(Title, blank=True, null=True, related_name='persons')
+    titles = models.ManyToManyField(Title, blank=True, related_name='persons')
     # TODO: change to an ImageField
     img_url = models.URLField(blank=True, null=True)
     phone = models.CharField(blank=True, null=True, max_length=20)

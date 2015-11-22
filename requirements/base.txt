@@ -1,30 +1,30 @@
-Django==1.6.1
-South==0.8.4
+django==1.8.6
+django-contrib-comments==1.6.1
 ipython
-django-extensions==1.2.5
+django-extensions==1.5.9
 djangorestframework==2.3.10
 facebook-sdk==0.4.0
 psycopg2==2.5.3
 python-mimeparse==0.1.4
-six==1.4.1
+six==1.10.0
 wsgiref==0.1.2
 django-staticfiles-fontawesome==2.0.0
 django-endless-pagination==2.0
 pyreadline==2.0
-pytz==2013.9
+pytz==2015.7
 requests==2.1.0
 unidecode==0.04.14
 dropbox==2.0.0
 pandas==0.17.0
 openpyxl==2.1.3
 django-pandas==0.1.0
-python-dateutil==1.5
-django-tastypie==0.9.15
+python-dateutil==2.4.2
+django-tastypie==0.12.2
 pysolr
 django-haystack
 futures
-django-blog-zinnia==0.14.1
-django-polymorphic==0.6
+django-blog-zinnia==0.15.2
+django-polymorphic==0.7.2
 jsonfield==1.0.0
 autotag
 django-autotag
@@ -35,10 +35,10 @@ django-taggit
 django-debug-toolbar>=1.0
 nose
 django-nose
-PIL
+pillow==3.0.0
 feedparser
 django-pagination==1.0.7
-django-tagging==0.3.1
+django-tagging==0.3.6
 -e git://github.com/hasadna/django-activity-stream.git@c56a07921b8c796fce35bda6feab4610fdf64e5d#egg=django-activity-stream
 -e git://github.com/pinax/django-mailer.git#egg=django-mailer
--e git://github.com/hasadna/django-planet.git@7a66a954b231391f2ac76e97f2a469f69fd29037#egg=django-planet
+django-planet==0.8.3

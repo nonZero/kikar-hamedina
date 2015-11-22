@@ -42,7 +42,7 @@ class TaggedItem(GenericTaggedItemBase):
     tag = models.ForeignKey(Tag,
                             related_name="%(app_label)s_%(class)s_items")
     tagged_by = models.ForeignKey(User, related_name='tagged', null=True, default=None)
-    date_of_tagging = models.DateTimeField(null=True, default=timezone.now())
+    date_of_tagging = models.DateTimeField(null=True, default=timezone.now)
 
     def __unicode__(self):
         super_str = super(TaggedItem, self).__unicode__()

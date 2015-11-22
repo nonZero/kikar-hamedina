@@ -34,7 +34,7 @@ class ElectedKnesset(models.Model):
 
 
 class CandidateList(models.Model):
-    candidates = models.ManyToManyField('persons.Person', blank=True, null=True, through='Candidate')
+    candidates = models.ManyToManyField('persons.Person', blank=True, through='Candidate')
     name = models.CharField(_('Name'), max_length=80)
     ballot = models.CharField(_('Ballot'), max_length=4)
     number_of_seats = models.IntegerField(blank=True, null=True)

@@ -62,7 +62,11 @@ class TestModels(unittest.TestCase):
             start_date=datetime.date.today() - datetime.timedelta(10))
         self.default_link = LinkType.objects.create(title='default')
         self.mk = Member.objects.create(name='MK')
-        self.link = Link.objects.create(url='http://www.google.com/', title='google', content_object=self.mk)
+        self.link = Link.objects.create(
+            url='http://www.google.com/',
+            title='google',
+            content_object=self.mk
+        )
 
     def testLink(self):
         self.assertEqual(self.link.link_type, self.default_link)
