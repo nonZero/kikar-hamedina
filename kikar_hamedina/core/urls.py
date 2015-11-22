@@ -27,7 +27,7 @@ urlpatterns = patterns('',
                        url(r'^$', views.AllStatusesView.as_view(), name='index'),
                        # include urls
                        url(r'^api/', include(v1_api.urls)),
-                       url(r'^blog/', include('zinnia.urls')),
+                       url(r'^blog/', include('zinnia.urls', namespace='zinnia')),
                        url(r'^comments/', include('django_comments.urls')),
                        # navbar direct decendants url
                        url(r'^billboards/$', views.BillboardsView.as_view(), name='billboards'),
